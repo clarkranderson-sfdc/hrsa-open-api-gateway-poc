@@ -1,0 +1,5 @@
+
+aws:
+  accessKey: 'AKIAVGY6Y3COSP524JX2'
+  secretKey: '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'
+  bucketName: 'hrsatestbucket-1'

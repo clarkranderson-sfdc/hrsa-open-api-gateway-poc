@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:snowflake="http://www.mulesoft.org/schema/mule/snowflake" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:s3="http://www.mulesoft.org/schema/mule/s3" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/s3 http://www.mulesoft.org/schema/mule/s3/current/mule-s3.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/snowflake http://www.mulesoft.org/schema/mule/snowflake/current/mule-snowflake.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="0b62e7fd-0a96-4a58-ae4b-4bd9ff830e7f" >
+		<http:listener-connection host="0.0.0.0" port="8081"/>
+	</http:listener-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="548e8b6e-ea9e-4c89-9047-e9c9560d3c34" file="myCofig-dev.yaml" />
+	<s3:config name="Amazon_S3_Configuration" doc:name="Amazon S3 Configuration" doc:id="61844122-df5f-4d36-bb94-4acc62dc4ea3" >
+		<s3:connection accessKey="${aws.accessKey}" secretKey="${aws.secretKey}" />
+	</s3:config>
+	<s3:config name="Amazon_S3_Configuration_poc" doc:name="Amazon S3 Configuration" doc:id="7028d945-fa95-416a-ace8-a58b45628d66" >
+		<s3:connection accessKey="AKIARC5V6S7CUAEL6O4O" secretKey="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" />
+	</s3:config>
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="86ef3526-4939-426a-8fff-dc339f79ab7e" >
+		<db:mssql-connection host="hrsa-database-1.cqrsywgugr1a.us-east-1.rds.amazonaws.com" port="1433" user="admin" password="HrsaPoc2025!" databaseName="HrsaTestDatabase" />
+	</db:config>
+	<snowflake:snowflake-config name="Snowflake_Config" doc:name="Snowflake Config" doc:id="05418ed3-3c32-46ac-b96a-3d5229eafa8a" >
+		<snowflake:snowflake-connection accountName="LUHXVNT-FDA10017" warehouse="COMPUTE_WH" database="HRSAPOC" schema="HRSAPOC" user="CANDERSON1HRSA" password="OlgaNavedo2016!" role="ACCOUNTADMIN" />
+	</snowflake:snowflake-config>
+	<flow name="aws-integration-s3-post" doc:id="311ef04e-ffe5-4378-aacf-ab0d7e70af91" >
+		<http:listener doc:name="Listener" doc:id="9e604c37-7870-4ebd-b754-ecfeb9009065" config-ref="HTTP_Listener_config" path="/aws-s3" allowedMethods="POST"/>
+		<logger level="INFO" doc:name="Logger" doc:id="7d2a97be-59ae-4b28-b28c-96faeb2a0850" message="%%%%%%%%% Before POST s3 bucket %%%%%%%%%%%" />
+		<!-- [STUDIO:"Create Bucket"]<s3:create-bucket doc:name="Create Bucket" doc:id="47c23f59-1ea7-4af9-a6b4-a0b747f0222e" config-ref="Amazon_S3_Configuration_poc" bucketName="aws-integration-s3-post"/> [STUDIO] -->
+		<s3:put-object doc:name="Put Object" doc:id="e9a43ea0-65d8-43a7-ad88-21db030da40d" config-ref="Amazon_S3_Configuration_poc" bucketName="#[attributes.queryParams.bucketName]" key="#[attributes.queryParams.fileName]"/>
+		<ee:transform doc:name="Transform Message" doc:id="3ce1b08d-821c-4292-a00b-202fa87f4963" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="aws-integration-s3-get" doc:id="5c00c989-129d-4d2c-aa71-c979686bd3d4" >
+		<http:listener doc:name="Listener" doc:id="1eda75e3-1c62-479a-bc36-6c3f4c8c114c" config-ref="HTTP_Listener_config" path="/aws-s3"/>
+		<logger level="INFO" doc:name="Logger" doc:id="6f8b00f4-0046-4c15-bc93-edb70fea842b" />
+		<s3:get-object doc:name="Get Object" doc:id="242bffcc-aeb5-4bb7-bb3a-e30fe0b81c3a" config-ref="Amazon_S3_Configuration_poc" bucketName="#[attributes.queryParams.bucketName]" key="#[attributes.queryParams.fileName]"/>
+		<!-- [STUDIO:"Set Payload"]<set-payload value="#[payload&#93;" doc:name="Set Payload" doc:id="38529baf-90af-436f-8636-c62790923a90" /> [STUDIO] -->
+		<ee:transform doc:name="Transform Message" doc:id="5a13ec9a-9b43-4260-854d-a076949fdf63" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="aws-integration-rds-post" doc:id="6cd4048e-0796-4058-9e27-6fb0975a7dc8" >
+		<http:listener doc:name="Listener" doc:id="6b6a2d2a-3366-4cfc-af6a-ae8e95be6da0" config-ref="HTTP_Listener_config" path="/aws-rds"/>
+		<logger level="INFO" doc:name="Logger" doc:id="7a965cde-b598-4c72-bbe3-e12c6f5b67bb" />
+		<db:insert doc:name="Insert" doc:id="24a45a42-5874-4885-a8be-d83ff71d3cc3" config-ref="Database_Config">
+			<db:sql ><![CDATA[INSERT INTO Awarded_Grants ([AWARD_YR], [FA], [GRANTEE_ADDRESS], [GRANTEE_CITY], [GRANTEE_COUNTY_DESC], [GRANTEE_COUNTY_NM], [GRANTEE_NM], [GRANTEE_REGION_CD], [GRANTEE_REGION_NM], [GRANTEE_STATE_ABBR], [STATE_NM], [GRANTEE_ZIP_CD], [GRANT_ACTIVITY_CD], [GRANT_NUM], [GRANT_SERIAL_NUM], [GRANT_PROJ_PERIOD_START_DT], [GRANT_PROJ_PERIOD_START_DT_TXT], [GRANT_PROJ_PERIOD_END_DT], [GRANT_PROJ_PERIOD_END_DT_TXT], [HGDW_ORG_CD], [HGDW_ORG_NM], [LIST_BOX_COUNTY_NM], [PROG_NM], [CONG_DIST_NM], [CONG_DIST_NUM], [REGION_ROMAN_NUMERAL], [REPRESENTATIVE_NM], [STATE_COUNTY_FIPS_CD], [STATE_FIPS_CD], [US_MEXICO_BORDER_100KM_IND], [US_MEXICO_BORDER_COUNTY_IND], [US_SENATE_NM1], [US_SENATE_NM2], [PROG_DESC], [GRANT_ABSTRACT_URL], [GRANTEE_TYP_DESC], [DUNS_NUM], [UEID_NUM], [GRANTEE_CMS_CERT_NUM], [X], [Y], [DW_RECORD_CREATE_DT], [DW_RECORD_CREATE_DT_TXT]) 
+VALUES ('2025', 1667586.0, '280 State Dr', 'Waterbury', 'County            ', 'Washington', 'HUMAN SERVICES VERMONT AGENCY OF', '1', 'Region 1', 'VT', 'Vermont', '05676-1598', 'B04', 'B04MC54580', '54580', '10/01/2024', '2024/10/01', '09/30/2026', '2026/09/30', 'MCHB', 'Maternal and Child Health', 'Washington County', 'Maternal and Child Health Services (B04)', 'Vermont At Large', '0', '1', 'Becca Balint', '50023', '50', 'N', 'N', 'Bernard Sanders', 'Peter Welch', 'The purpose of the Title V Maternal and Child Health (MCH) Services Block Grant program is to improve the health of all mothers and children by enabling each state to: Assure mothers and children access to quality MCH services, especially those with low income or limited availability of care; Reduce infant mortality; Reduce the incidence of preventable diseases and handicD; Reduce the incidence of stillbirth; Provide access to prenatal, delivery, and postpartum care to women (especially low income and at risk pregnant women); Increase the number of low-income children who receive regular health assessments and follow-up diagnostic and treatment services; Provide access to preventive and primary care services for low income children as well as rehabilitation services for children with special health care needs (CSHCN); and implement family-centered, community-based, systems of coordinated care for CSHCN.', 'No Link', 'U.S. Government Entity', '809376155', 'YLQARK22FMQ1', NULL, -72.75464111, 44.33104426, '11/12/2025', '2025/11/12');
+]]></db:sql>
+		</db:insert>
+		<ee:transform doc:name="Transform Message" doc:id="b13175c2-1f20-41ef-bcd5-25b6e1473987" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="aws-integration-rds-get" doc:id="16e59351-5bad-4d15-a1c3-d394c2f901dd" >
+		<http:listener doc:name="Listener" doc:id="31e83d59-2eca-4eef-8f62-5b1851939906" config-ref="HTTP_Listener_config" path="/aws-rds" allowedMethods="GET"/>
+		<logger level="INFO" doc:name="Logger" doc:id="4fbe872b-9332-4b84-b6db-c5406c958e64" />
+		<db:select doc:name="Select" doc:id="721795f3-4d9c-401b-8514-80f76b4a6022" config-ref="Database_Config">
+			<db:sql ><![CDATA[select * from Awarded_Grants;]]></db:sql>
+		</db:select>
+		<!-- [STUDIO:"Set Payload"]<set-payload value="#[payload&#93;" doc:name="Set Payload" doc:id="6e350cb8-5289-4cde-a1e1-9e509583561a" /> [STUDIO] -->
+		<ee:transform doc:name="Transform Message" doc:id="735949dc-e582-4935-a045-8cc336b76ea6" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="snowflake-integration-get" doc:id="00d2567d-3b12-447a-b6c8-7a1d22363d78" >
+		<http:listener doc:name="Listener" doc:id="883480e9-545b-49d2-9c1a-20f7a813d464" config-ref="HTTP_Listener_config" path="/snowflake" allowedMethods="GET"/>
+		<logger level="INFO" doc:name="Logger" doc:id="f0fb7cb9-812b-4699-8c01-ab0f302c7188" />
+		<snowflake:select doc:name="Select" doc:id="60b95ce7-df93-4680-a7b4-e997d0aeb57d" config-ref="Snowflake_Config">
+			<snowflake:sql ><![CDATA[select * from Active_Grants;]]></snowflake:sql>
+		</snowflake:select>
+		<ee:transform doc:name="Transform Message" doc:id="c804cb7b-ceb1-4409-bccb-a97742fc0609" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="snowflake-integration-post" doc:id="757a61c6-3b53-4198-9989-eb54ca282aee" >
+		<http:listener doc:name="Listener" doc:id="c12b1b5a-c185-45f8-a785-0703501690c4" config-ref="HTTP_Listener_config" path="/snowflake" allowedMethods="POST"/>
+		<logger level="INFO" doc:name="Logger" doc:id="e6283740-fba5-48e0-bc10-3df9cbdc36ab" />
+		<snowflake:insert doc:name="Insert" doc:id="1f079587-091f-40da-aaa4-165c47098411" config-ref="Snowflake_Config">
+			<snowflake:sql ><![CDATA[INSERT INTO Active_Grants ("AWARD_YR", "GRANTEE_NM", "GRANTEE_ADDRESS", "GRANTEE_CITY", "GRANTEE_STATE_ABBR", "GRANTEE_ZIP_CD", "GRANT_ACTIVITY_CD", "GRANT_NUM", "GRANT_SERIAL_NUM", "GRANT_PROJ_PERIOD_START_DT", "GRANT_PROJ_PERIOD_END_DT", "HGDW_ORG_CD", "HGDW_ORG_NM", "PROG_NM", "PROG_DESC", "REPRESENTATIVE_NM", "LIST_BOX_COUNTY_NM", "US_MEXICO_BORDER_100KM_IND", "US_MEXICO_BORDER_COUNTY_IND", "US_SENATE_NM1", "US_SENATE_NM2", "DW_RECORD_CREATE_DT", "GRANT_ABSTRACT_URL", "GRANT_PROJ_DESC", "GRANTEE_TYP_DESC", "DUNS_NUM", "UEID_NUM", "X", "Y") VALUES ('2008', 'OHIO UNIVERSITY', '1 Ohio University', 'Athens', 'OH', '45701-2942', 'E37', 'E37HP17290', '17290', '1991/07/01', '2079/06/06', 'BHW', 'Health Workforce', 'LDS - Osteopathic Medicine (E37)', 'Loans for disadvantaged students in the field of osteopathic medicine.  
+', 'Troy Balderson', 'Athens County', 'N', 'N', 'Bernie Moreno', 'Jon Husted', '2025/11/12', 'No Link', NULL, 'U.S. Government Entity', '41077983', 'LXHMMWRKN5N8', -82.10145507, 39.32513972);
+]]></snowflake:sql>
+		</snowflake:insert>
+		<ee:transform doc:name="Transform Message" doc:id="1d60f608-071a-4c5f-a2e0-fcd8e1e1131d" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
