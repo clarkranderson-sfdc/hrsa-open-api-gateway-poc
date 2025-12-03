@@ -1,0 +1,307 @@
+{
+	"info": {
+		"_postman_id": "dfe14ceb-aba2-4c90-a268-8c56c2b97705",
+		"name": "HRSA POC demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6619332"
+	},
+	"item": [
+		{
+			"name": "GET RDS",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "eyJraWQiOiJlYmlISXlPaFJQckxZY2FVWUwxcXpISjZTcWJHNnFPcU1aSFN4czVSc3hvIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULkJtNUw5V2I0TWFSSll5M3pLSjFyeXBjVlozUHBjY05OZzlfUk81XzIwUmsiLCJpc3MiOiJodHRwczovL2ludGVncmF0b3ItMzYwNzgxMS5va3RhLmNvbS9vYXV0aDIvZGVmYXVsdCIsImF1ZCI6ImFwaTovL2RlZmF1bHQiLCJpYXQiOjE3NjM2MDMxOTYsImV4cCI6MTc2MzY4OTU5NiwiY2lkIjoiMG9heGwxOGxtbTZtaUs5Sk42OTciLCJzY3AiOlsiaHJzYS1hZG1pbiJdLCJzdWIiOiIwb2F4bDE4bG1tNm1pSzlKTjY5NyJ9.G8VPICEJKb4NBilG486Bve9GpcBFlBFbilf3AbTiOuCit9hAXaNCuKY-GMPbcsOeg_elr71jp-ITEMdONbXkoUfyYtKLEobGDZxq3MgBvO1pNgyCiuRjCeS_lgb5jNgNhAGAatagHHS1RqeKfM9-CTJMFvyAQo0pcNiSxXMCC8i4m-xVDimpboC2550IDz7LTelCUlLU4FwUA-jWbTiHQ4iXoz3ILJOKc4In7nI9po1Bubp6c3eJb9aX90Ovc9-P4uUAlymmxxASWRlq5aO5TpxnLaFDgtokZbUBLOhJwPp-Z0biNFyKHNoAq1UzySsyhbV02Helh0TXKFDqDSxhng",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://hrsa-poc-proxy-20251117.usg-w1.gov.cloudhub.io/aws-rds",
+					"protocol": "http",
+					"host": [
+						"hrsa-poc-proxy-20251117",
+						"usg-w1",
+						"gov",
+						"cloudhub",
+						"io"
+					],
+					"path": [
+						"aws-rds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST RDS",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "eyJraWQiOiJlYmlISXlPaFJQckxZY2FVWUwxcXpISjZTcWJHNnFPcU1aSFN4czVSc3hvIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULkJtNUw5V2I0TWFSSll5M3pLSjFyeXBjVlozUHBjY05OZzlfUk81XzIwUmsiLCJpc3MiOiJodHRwczovL2ludGVncmF0b3ItMzYwNzgxMS5va3RhLmNvbS9vYXV0aDIvZGVmYXVsdCIsImF1ZCI6ImFwaTovL2RlZmF1bHQiLCJpYXQiOjE3NjM2MDMxOTYsImV4cCI6MTc2MzY4OTU5NiwiY2lkIjoiMG9heGwxOGxtbTZtaUs5Sk42OTciLCJzY3AiOlsiaHJzYS1hZG1pbiJdLCJzdWIiOiIwb2F4bDE4bG1tNm1pSzlKTjY5NyJ9.G8VPICEJKb4NBilG486Bve9GpcBFlBFbilf3AbTiOuCit9hAXaNCuKY-GMPbcsOeg_elr71jp-ITEMdONbXkoUfyYtKLEobGDZxq3MgBvO1pNgyCiuRjCeS_lgb5jNgNhAGAatagHHS1RqeKfM9-CTJMFvyAQo0pcNiSxXMCC8i4m-xVDimpboC2550IDz7LTelCUlLU4FwUA-jWbTiHQ4iXoz3ILJOKc4In7nI9po1Bubp6c3eJb9aX90Ovc9-P4uUAlymmxxASWRlq5aO5TpxnLaFDgtokZbUBLOhJwPp-Z0biNFyKHNoAq1UzySsyhbV02Helh0TXKFDqDSxhng",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://hrsa-poc-proxy-20251117.usg-w1.gov.cloudhub.io/aws-rds",
+					"protocol": "http",
+					"host": [
+						"hrsa-poc-proxy-20251117",
+						"usg-w1",
+						"gov",
+						"cloudhub",
+						"io"
+					],
+					"path": [
+						"aws-rds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET AWS S3",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "eyJraWQiOiJlYmlISXlPaFJQckxZY2FVWUwxcXpISjZTcWJHNnFPcU1aSFN4czVSc3hvIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULkUwczlnckZEM21wekNJMFc5NC1DUXQ3bTZMTmlHZnFPZk5ySm53aWFOQ28iLCJpc3MiOiJodHRwczovL2ludGVncmF0b3ItMzYwNzgxMS5va3RhLmNvbS9vYXV0aDIvZGVmYXVsdCIsImF1ZCI6ImFwaTovL2RlZmF1bHQiLCJpYXQiOjE3NjM1MTYwMzMsImV4cCI6MTc2MzYwMjQzMywiY2lkIjoiMG9heGwxOGxtbTZtaUs5Sk42OTciLCJzY3AiOlsiaHJzYS1hZG1pbiJdLCJzdWIiOiIwb2F4bDE4bG1tNm1pSzlKTjY5NyJ9.ZIW4Rk_2GxiENdOc8ait1aXqr8H_fjdiASBWvM1GrWWe8S0dyZ0azc_FJstVtsr53RJ4tzAkxUBCehDJvxJiKb8BSmbWRQVMkiHdSW7ReyVGBKfSu0eQNKdOHmDcPOTgwuzIhxNjYqLSmsuYNfhInCr78eJcSjslv5hVYfoWtpVCvtUBaI8s_vmH0lcorTZyQ6v6VER7SYb84PInkCL1ookuzrjOFAvgFvXbID2091QSYvNHT1sxcPakKPga28jIUfPHYteoFqZ_e2P8Q0bDkReCCZtLiCwBD5RbxZlq0RYy_qpDbND0iRMsh1xV2s9VPH08isXknhrNFD4aTLf7RA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://hrsa-poc-proxy-20251117.usg-w1.gov.cloudhub.io/aws-s3?bucketName=aws-integration-s3-post&fileName=EHB_ACTIVE_GRANT_FA_AGR_subset",
+					"protocol": "http",
+					"host": [
+						"hrsa-poc-proxy-20251117",
+						"usg-w1",
+						"gov",
+						"cloudhub",
+						"io"
+					],
+					"path": [
+						"aws-s3"
+					],
+					"query": [
+						{
+							"key": "bucketName",
+							"value": "aws-integration-s3-post"
+						},
+						{
+							"key": "fileName",
+							"value": "EHB_ACTIVE_GRANT_FA_AGR_subset"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST AWS S3",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "eyJraWQiOiJlYmlISXlPaFJQckxZY2FVWUwxcXpISjZTcWJHNnFPcU1aSFN4czVSc3hvIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULkUwczlnckZEM21wekNJMFc5NC1DUXQ3bTZMTmlHZnFPZk5ySm53aWFOQ28iLCJpc3MiOiJodHRwczovL2ludGVncmF0b3ItMzYwNzgxMS5va3RhLmNvbS9vYXV0aDIvZGVmYXVsdCIsImF1ZCI6ImFwaTovL2RlZmF1bHQiLCJpYXQiOjE3NjM1MTYwMzMsImV4cCI6MTc2MzYwMjQzMywiY2lkIjoiMG9heGwxOGxtbTZtaUs5Sk42OTciLCJzY3AiOlsiaHJzYS1hZG1pbiJdLCJzdWIiOiIwb2F4bDE4bG1tNm1pSzlKTjY5NyJ9.ZIW4Rk_2GxiENdOc8ait1aXqr8H_fjdiASBWvM1GrWWe8S0dyZ0azc_FJstVtsr53RJ4tzAkxUBCehDJvxJiKb8BSmbWRQVMkiHdSW7ReyVGBKfSu0eQNKdOHmDcPOTgwuzIhxNjYqLSmsuYNfhInCr78eJcSjslv5hVYfoWtpVCvtUBaI8s_vmH0lcorTZyQ6v6VER7SYb84PInkCL1ookuzrjOFAvgFvXbID2091QSYvNHT1sxcPakKPga28jIUfPHYteoFqZ_e2P8Q0bDkReCCZtLiCwBD5RbxZlq0RYy_qpDbND0iRMsh1xV2s9VPH08isXknhrNFD4aTLf7RA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "Test for Clark",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://hrsa-poc-proxy-20251117.usg-w1.gov.cloudhub.io/aws-s3?bucketName=aws-integration-s3-post&fileName=testforclark",
+					"protocol": "http",
+					"host": [
+						"hrsa-poc-proxy-20251117",
+						"usg-w1",
+						"gov",
+						"cloudhub",
+						"io"
+					],
+					"path": [
+						"aws-s3"
+					],
+					"query": [
+						{
+							"key": "bucketName",
+							"value": "aws-integration-s3-post"
+						},
+						{
+							"key": "fileName",
+							"value": "testforclark"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Snowflake",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "eyJraWQiOiJlYmlISXlPaFJQckxZY2FVWUwxcXpISjZTcWJHNnFPcU1aSFN4czVSc3hvIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULkUwczlnckZEM21wekNJMFc5NC1DUXQ3bTZMTmlHZnFPZk5ySm53aWFOQ28iLCJpc3MiOiJodHRwczovL2ludGVncmF0b3ItMzYwNzgxMS5va3RhLmNvbS9vYXV0aDIvZGVmYXVsdCIsImF1ZCI6ImFwaTovL2RlZmF1bHQiLCJpYXQiOjE3NjM1MTYwMzMsImV4cCI6MTc2MzYwMjQzMywiY2lkIjoiMG9heGwxOGxtbTZtaUs5Sk42OTciLCJzY3AiOlsiaHJzYS1hZG1pbiJdLCJzdWIiOiIwb2F4bDE4bG1tNm1pSzlKTjY5NyJ9.ZIW4Rk_2GxiENdOc8ait1aXqr8H_fjdiASBWvM1GrWWe8S0dyZ0azc_FJstVtsr53RJ4tzAkxUBCehDJvxJiKb8BSmbWRQVMkiHdSW7ReyVGBKfSu0eQNKdOHmDcPOTgwuzIhxNjYqLSmsuYNfhInCr78eJcSjslv5hVYfoWtpVCvtUBaI8s_vmH0lcorTZyQ6v6VER7SYb84PInkCL1ookuzrjOFAvgFvXbID2091QSYvNHT1sxcPakKPga28jIUfPHYteoFqZ_e2P8Q0bDkReCCZtLiCwBD5RbxZlq0RYy_qpDbND0iRMsh1xV2s9VPH08isXknhrNFD4aTLf7RA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "Test for Clark",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://hrsa-poc-proxy-20251117.usg-w1.gov.cloudhub.io/snowflake",
+					"protocol": "http",
+					"host": [
+						"hrsa-poc-proxy-20251117",
+						"usg-w1",
+						"gov",
+						"cloudhub",
+						"io"
+					],
+					"path": [
+						"snowflake"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Snowflake",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "eyJraWQiOiJlYmlISXlPaFJQckxZY2FVWUwxcXpISjZTcWJHNnFPcU1aSFN4czVSc3hvIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULkUwczlnckZEM21wekNJMFc5NC1DUXQ3bTZMTmlHZnFPZk5ySm53aWFOQ28iLCJpc3MiOiJodHRwczovL2ludGVncmF0b3ItMzYwNzgxMS5va3RhLmNvbS9vYXV0aDIvZGVmYXVsdCIsImF1ZCI6ImFwaTovL2RlZmF1bHQiLCJpYXQiOjE3NjM1MTYwMzMsImV4cCI6MTc2MzYwMjQzMywiY2lkIjoiMG9heGwxOGxtbTZtaUs5Sk42OTciLCJzY3AiOlsiaHJzYS1hZG1pbiJdLCJzdWIiOiIwb2F4bDE4bG1tNm1pSzlKTjY5NyJ9.ZIW4Rk_2GxiENdOc8ait1aXqr8H_fjdiASBWvM1GrWWe8S0dyZ0azc_FJstVtsr53RJ4tzAkxUBCehDJvxJiKb8BSmbWRQVMkiHdSW7ReyVGBKfSu0eQNKdOHmDcPOTgwuzIhxNjYqLSmsuYNfhInCr78eJcSjslv5hVYfoWtpVCvtUBaI8s_vmH0lcorTZyQ6v6VER7SYb84PInkCL1ookuzrjOFAvgFvXbID2091QSYvNHT1sxcPakKPga28jIUfPHYteoFqZ_e2P8Q0bDkReCCZtLiCwBD5RbxZlq0RYy_qpDbND0iRMsh1xV2s9VPH08isXknhrNFD4aTLf7RA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "Test for Clark",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://hrsa-poc-proxy-20251117.usg-w1.gov.cloudhub.io/snowflake",
+					"protocol": "http",
+					"host": [
+						"hrsa-poc-proxy-20251117",
+						"usg-w1",
+						"gov",
+						"cloudhub",
+						"io"
+					],
+					"path": [
+						"snowflake"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "clientSecret",
+				"value": "9IvIh30AAltjgPdHBwlPqgnAUmvsoWb0nWkxaiv_bRyy2IVkpFhuBhmmY3h6RvJ3",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "0oaxl18lmm6miK9JN697",
+				"type": "string"
+			},
+			{
+				"key": "scope",
+				"value": "hrsa-admin",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "Okta Salesforce integrator",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "https://integrator-3607811.okta.com/oauth2/default/v1/token",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "client_credentials",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
